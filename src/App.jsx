@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
+import profilephoto  from './assets/tony_profile.png'
 const LazySpline = lazy(() => import('@splinetool/react-spline'))
 
 function Navbar() {
@@ -90,7 +91,7 @@ function Hero() {
       )}
       <div className="absolute inset-0 z-10 flex flex-col items-start justify-center text-left px-6 md:pl-70 pointer-events-none">
         <img
-          src="/tony-photo.svg"
+          src={profilephoto}
           alt="Tony Teshara"
           loading="lazy"
           className="w-40 h-40 rounded-full shadow-soft mb-6 animate-fade-in"
