@@ -1,8 +1,9 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
+﻿import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import profilephoto  from './assets/tony_profile.png'
 const LazySpline = lazy(() => import('@splinetool/react-spline'))
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHandshake, faGlobe, faBolt , faTrophy} from '@fortawesome/free-solid-svg-icons'
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
@@ -19,7 +20,7 @@ function Navbar() {
           <a href="#vision" className="hover:text-black">Vision</a>
           <a href="#media" className="hover:text-black">Media</a>
           <a href="#contact" className="hover:text-black">Contact</a>
-          <a href="#contact" className="ml-2 px-4 py-2 rounded-full bg-black text-white hover:bg-gray-800 transition">Let’s Connect</a>
+          <a href="#contact" className="ml-2 px-4 py-2 rounded-full bg-black text-white hover:bg-gray-800 transition">Let's Connect</a>
         </div>
       </nav>
     </header>
@@ -76,6 +77,7 @@ function Hero() {
 
   const showSpline = mountSpline && inView && nearTop && !isMobile
 
+  
   return (
     <section id="hero" className="relative w-full h-screen overflow-hidden" style={{ contain: 'layout paint' }}>
       {/* Soft pastel background as placeholder while Spline mounts */}
@@ -102,7 +104,7 @@ function Hero() {
           Helping U.S. companies hire the best LATAM talent.
         </p>
         <a href="#contact" className="mt-8 px-6 py-3 bg-black text-white rounded-full shadow-soft hover:bg-gray-800 transition pointer-events-auto">
-          Let’s Connect
+          Letâ€™s Connect
         </a>
       </div>
     </section>
@@ -128,7 +130,7 @@ function About() {
         >
           <h3 className="font-display text-2xl md:text-3xl font-semibold text-black mb-3">About Tony</h3>
           <p className="text-gray-700 text-lg leading-relaxed">
-            Dad and CEO of Handle. Tony is reshaping recruitment—transparent, efficient, and human-first.
+            Dad and CEO of Handle. Tony is reshaping recruitmentâ€”transparent, efficient, and human-first.
             He bridges the gap between U.S. companies and LATAM talent.
           </p>
         </motion.div>
@@ -138,14 +140,16 @@ function About() {
 }
 
 function Vision() {
+  
   const cards = useMemo(
     () => [
-      { title: 'Transparency', text: 'No markups. No wasted time.', icon: '🔍' },
-      { title: 'Global Reach', text: 'Bridging U.S. companies and LATAM talent.', icon: '🌎' },
-      { title: 'Efficiency', text: 'Fast, reliable recruiting for growing teams.', icon: '⚡' },
+      { title: 'Transparency', text: 'No markups. No wasted time.', icon: <FontAwesomeIcon icon={faHandshake} style={{ color: "#000000" }} />},
+      { title: 'Global Reach', text: 'Bridging U.S. companies and LATAM talent.', icon: <FontAwesomeIcon icon={faGlobe} style={{ color: "#000000" }} /> },
+      { title: 'Efficiency', text: 'Fast, reliable recruiting for growing teams.', icon:<FontAwesomeIcon icon={faBolt} style={{ color: "#000000" }} /> },
     ],
     []
   )
+  const extraCard = { title: '150+ companies helped', text: 'We\u2019ve partnered across industries.', icon: <FontAwesomeIcon icon={faTrophy} style={{ color: "#000000" }} /> }
   return (
     <section id="vision" className="py-24 bg-white">
       <div className="max-w-6xl mx-auto px-6">
@@ -158,21 +162,26 @@ function Vision() {
         >
           Recruitment Reinvented
         </motion.h3>
-        <div className="grid md:grid-cols-3 gap-6">
-          {cards.map((c, i) => (
-            <motion.div
-              key={c.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="bg-white rounded-2xl shadow-soft p-8 hover:shadow-lg transition-transform duration-300 hover:-translate-y-1"
-            >
-              <div className="text-3xl mb-4" aria-hidden>{c.icon}</div>
-              <h4 className="text-xl font-semibold text-black mb-2">{c.title}</h4>
-              <p className="text-gray-700">{c.text}</p>
-            </motion.div>
-          ))}
+        
+        <div className="mt-8 relative overflow-hidden">
+          <motion.div
+            className="flex gap-6"
+            initial={{ x: '0%' }}
+            animate={{ x: ['0%', '-50%'] }}
+            transition={{ duration: 20, ease: 'linear', repeat: Infinity }}
+            aria-label="Auto-scrolling highlights"
+          >
+            {[...cards, extraCard, ...cards, extraCard].map((c, i) => (
+              <div
+                key={`${c.title}-${i}`}
+                className="w-72 flex-shrink-0 bg-white rounded-2xl shadow-soft p-8"
+              >
+                <div className="text-3xl mb-4" aria-hidden>{c.icon}</div>
+                <h4 className="text-xl font-semibold text-black mb-2">{c.title}</h4>
+                <p className="text-gray-700">{c.text}</p>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </div>
     </section>
@@ -180,8 +189,8 @@ function Vision() {
 }
 
 function MediaCarousel() {
-  const items = [
-    { title: 'Podcast: Building Transparent Recruiting', source: 'Podcast — 2024', quote: 'Loved Tony’s clear model for hiring across LATAM.' },
+    const items = [
+    { title: 'Podcast: Building Transparent Recruiting', source: 'Podcast — 2024', quote: "Loved Tony's clear model for hiring across LATAM." },
     { title: 'Press: Handle Raises Awareness', source: 'Tech News', quote: 'A fresh take on technical recruiting.' },
     { title: 'Podcast: Hiring Playbook', source: 'Founder Show', quote: 'Actionable steps for fast, fair hiring.' },
   ]
@@ -199,21 +208,29 @@ function MediaCarousel() {
         </motion.h3>
         <div className="relative">
           <div
-            className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-4"
+            className="flex gap-6  snap-x snap-mandatory pb-4"
             style={{ scrollbarWidth: 'thin' }}
           >
             {items.map((it, idx) => (
-              <motion.article
+              <motion.div
                 key={idx}
-                className="min-w-[85%] md:min-w-[32%] bg-white rounded-2xl shadow-soft p-6 snap-center"
+                className="min-w-[85%] md:min-w-[32%] snap-center flex items-center justify-center"
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                <h4 className="text-lg font-semibold text-black">{it.title}</h4>
-                <p className="text-sm text-gray-500 mb-4">{it.source}</p>
-                <p className="text-gray-700 italic">“{it.quote}”</p>
-              </motion.article>
+                <div className="flip-card">
+                  <div className="flip-card-inner">
+                    <div className="flip-card-front">
+                      <p className="title">{it.title}</p>
+                    </div>
+                    <div className="flip-card-back">
+                      <p className="text-sm text-white/90">{it.source}</p>
+                      <p className="mt-2 max-w-[14rem] px-4 italic">&ldquo;{it.quote}&rdquo;</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -233,8 +250,28 @@ function Contact() {
           variants={sectionVariants}
           className="font-display text-3xl md:text-4xl font-semibold text-black mb-8 text-center"
         >
-          Start hiring smarter today
+          Need hiring advice
         </motion.h3>
+
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-600 via-fuchsia-500 to-cyan-500 p-[2px] shadow-soft mb-10">
+          <div className="bg-white rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="text-center md:text-left">
+              <h4 className="text-2xl md:text-3xl font-display font-semibold text-black">Talk to Tony in Hubble</h4>
+              <p className="mt-2 text-gray-700 max-w-xl">Quick guidance on roles, pipelines, or compensation. Tap the icon to open the chat.</p>
+            </div>
+            <a
+              href="http://app.hubble.social/tonyteshara"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center w-20 h-20 md:w-24 md:h-24 rounded-full bg-black text-white shadow-lg hover:scale-105 transition will-change-transform"
+              aria-label="Open Hubble chat"
+            >
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path d="M4 5a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3H9.8l-3.4 2.6A1 1 0 0 1 5 16.9V15H7a3 3 0 0 1-3-3V5Z" fill="currentColor"/>
+              </svg>
+            </a>
+          </div>
+        </div>
 
         <form
           onSubmit={(e) => {
@@ -265,6 +302,7 @@ function Contact() {
 export default function App() {
   return (
     <div className="font-sans">
+      <div className="noise-texture" aria-hidden />
       <Navbar />
       <main>
         <Hero />
@@ -293,19 +331,20 @@ function Footer() {
   ]
 
   return (
-    <footer className="bg-white border-t border-gray-200 relative">
-      <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-cyan-200 via-indigo-200 to-teal-200" aria-hidden />
-      <div className="max-w-7xl mx-auto px-6 py-12">
+    <footer className="bg-gray-900/95 relative">
+      <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-white/10 via-white/5 to-white/10" aria-hidden />
+      <div className="max-w-7xl mx-auto px-6 py-12 text-white">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
           <div>
-            <p className="font-display text-xl font-semibold text-black">Tony Teshara</p>
-            <p className="text-gray-600">CEO & Co‑Founder of Handle</p>
+            <p className="font-display text-xl font-semibold text-white">Tony Teshara</p>
+            <p className="mt-1"><a href="mailto:tony@handle.lat" className="text-white hover:text-white/80">tony@handle.lat</a></p>
+            <p className="text-gray-600">CEO & Coâ€‘Founder of Handle</p>
           </div>
-          <nav className="flex gap-6 text-gray-700">
-            <a href="#about" className="hover:text-black">About</a>
-            <a href="#vision" className="hover:text-black">Vision</a>
-            <a href="#media" className="hover:text-black">Media</a>
-            <a href="#contact" className="hover:text-black">Contact</a>
+          <nav className="flex gap-6 text-gray-300">
+            <a href="#about" className="hover:text-white">About</a>
+            <a href="#vision" className="hover:text-white">Vision</a>
+            <a href="#media" className="hover:text-white">Media</a>
+            <a href="#contact" className="hover:text-white">Contact</a>
           </nav>
           <div className="flex items-center gap-4">
             {socials.map((s) => (
@@ -314,7 +353,7 @@ function Footer() {
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-700 hover:bg-black hover:text-white transition"
+                className="group inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/10 text-white hover:bg-white hover:text-black transition"
                 aria-label={s.name}
               >
                 {s.icon}
@@ -322,8 +361,11 @@ function Footer() {
             ))}
           </div>
         </div>
-        <div className="mt-8 text-center md:text-left text-gray-500 text-sm">© {new Date().getFullYear()} Tony Teshara • Handle</div>
+        <div className="mt-8 text-center md:text-left text-gray-500 text-sm">Â© {new Date().getFullYear()} Tony Teshara â€¢ Handle</div>
       </div>
     </footer>
   )
 }
+
+
+
