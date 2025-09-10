@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Pastel background accents for sections */
+.pastel-gradient {
+  background: radial-gradient(1200px 500px at 10% -10%, rgba(46,160,240,0.08), transparent),
+              radial-gradient(900px 400px at 100% 20%, rgba(99,102,241,0.08), transparent),
+              radial-gradient(700px 300px at 30% 120%, rgba(45,212,191,0.10), transparent);
+}
+
+/* Floating label helpers */
+.peer:focus ~ label,
+.peer:not(:placeholder-shown) ~ label {
+  @apply -translate-y-3 scale-90 text-gray-600;
+}
+
+/* Custom utilities and animations */
+@layer utilities {
+  .font-display { font-family: Poppins, Inter, system-ui, sans-serif; }
+  .shadow-soft { box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+
+  @keyframes fadeIn { 0% { opacity: 0 } 100% { opacity: 1 } }
+  @keyframes slideUp { 0% { opacity: 0; transform: translateY(12px) } 100% { opacity: 1; transform: translateY(0) } }
+  @keyframes typewriter { 0% { width: 0% } 100% { width: 100% } }
+  @keyframes caret { 0%,100% { border-color: transparent } 50% { border-color: rgba(0,0,0,0.6) } }
+
+  .animate-fade-in { animation: fadeIn 700ms ease-out both; }
+  .animate-fade-in-delay { animation: fadeIn 900ms 200ms ease-out both; }
+  .animate-slide-up { animation: slideUp 700ms ease-out both; }
+  .animate-typewriter { animation: typewriter 2.8s steps(30) 500ms both, caret 1s steps(1) infinite; }
+}
