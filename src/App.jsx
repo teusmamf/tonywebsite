@@ -338,7 +338,7 @@ function Footer() {
           <div>
             <p className="font-display text-xl font-semibold text-white">Tony Teshara</p>
             <p className="mt-1"><a href="mailto:tony@handle.lat" className="text-white hover:text-white/80">tony@handle.lat</a></p>
-            <p className="text-gray-600">CEO & Coâ€‘Founder of Handle</p>
+            <p className="text-gray-600">CEO & Co-Founder of Handle</p>
           </div>
           <nav className="flex gap-6 text-gray-300">
             <a href="#about" className="hover:text-white">About</a>
