@@ -104,7 +104,7 @@ function Hero() {
           Helping U.S. companies hire the best LATAM talent.
         </p>
         <a href="#contact" className="mt-8 px-6 py-3 bg-black text-white rounded-full shadow-soft hover:bg-gray-800 transition pointer-events-auto">
-          Letâ€™s Connect
+          Let's Connect
         </a>
       </div>
     </section>
